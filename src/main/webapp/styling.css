@@ -1,0 +1,129 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f2f2;
+    position: relative;
+}
+
+header {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 18px;
+    max-width: 100%;
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header img {
+    margin-right: 14px;
+    width: 80px;
+    height: 80px;
+}
+
+h1 {
+    color: #333;
+    font-family: 'Maven Pro', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+}
+
+.container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    position: relative;
+}
+
+main {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 36px;
+    color: #333;
+    font-family: 'Maven Pro', sans-serif;
+    text-align: center;
+
+}
+
+.options {
+    display: flex;
+    gap: 5%;
+    padding-top: 2%;
+    padding-left: 75px;
+    padding-right: 75px;
+
+}
+
+button {
+    flex: 1;
+    background-color: #fff; /* Hover background color */
+    color: #007BFF; /* Hover text color */
+    border: 2px solid #007BFF;
+    padding: 15px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s; /* Smooth color transition */
+}
+
+button:hover {
+    background-color: #007BFF; /* Regular background color */
+    color: #fff; /* Regular text color */
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 15px;
+
+}
+
+button.submit {
+    background-color: #007BFF; /* Hover background color */
+    color: #fff; /* Hover text color */
+    border: 2px solid #007BFF;
+    padding: 15px 110px;
+    
+}
+
+button.submit:hover {
+    background-color: #fff; /* Regular background color */
+    color: #007BFF; /* Regular text color */
+}
+
+
+
+.viewresults {
+    padding-left:80%;
+    padding-bottom: 15px;
+}
+
+button.results {
+    background: #B5B5B5;
+    color: #4f4f4f; 
+    border: 2px solid #555;
+    padding: 10px 32px;
+    
+}
+
+button.results:hover {
+    background-color: #41414143; /* Regular background color */
+    color: #000000; /* Regular text color */
+}
+
