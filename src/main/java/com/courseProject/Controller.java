@@ -62,7 +62,7 @@ public class Controller {
             return voteTotal;
     }
 
-    @PostMapping("/vote") String Write(@RequestBody Votes votes){
+    @PostMapping("/vote") String write(@RequestBody Votes votes){
         int vote = votes.getVote();
         String id = votes.getId();
 
