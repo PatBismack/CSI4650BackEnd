@@ -14,7 +14,7 @@
     <div class="container">
         <main>
             <h2>Is Mac better than Windows?</h2>
-            <form action="/getTotal" method="post">
+            <form action="process_response.jsp" method="post">
                 <div class="options">
                     <button type="submit" name="response" value="Yes">Yes</button>
                     <button type="submit" name="response" value="No">No</button>
@@ -23,13 +23,13 @@
             </form>
         </main>
         <footer>
-            <form action="/vote" method="post">
+            <form action="submit_response.jsp" method="post">
                 <button type="submit" class="submit">Submit</button>
             </form>
         </footer>
 
         <div class="viewresults">
-            <form action="/getAllVotes" method="post">
+            <form action="view_response.jsp" method="post">
                 <button type="submit" class="results">View Results</button>
             </form>
         </div>
