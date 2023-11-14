@@ -1,46 +1,40 @@
 package com.courseProject;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
+@RequestMapping("/api")
 public class Controller {
 
-    @GetMapping("/getAllVotes") List<Votes> Read(){
+    @GetMapping("/getAllVotes")
+    public List<Votes> read() {
         int vote;
         String voteValue;
         String id;
-
         String CSVpath = "src/main/java/com/courseProject/Votes.csv";
-
-        List <Votes> voteList = new ArrayList<>();
+        List<Votes> voteList = new ArrayList<>();
         Csv file = new Csv(CSVpath);
-            String[][] data = file.readCSV();
-        for (int i = 0; i < data.length; i++){
+        String[][] data = file.readCSV();
+        for (int i = 0; i < data.length; i++) {
             voteValue = data[i][0];
-                vote = Integer.parseInt(voteValue);
+            vote = Integer.parseInt(voteValue);
             id = data[i][1];
-                voteList.add(new Votes(vote, id));
+            voteList.add(new Votes(vote, id));
         }
-            return voteList;
+        return voteList;
     }
 
-    @GetMapping("/getTotal") Total voteTotal(@RequestBody Total total){
+    @PostMapping("/getTotal")
+    public Total voteTotal() {
         int vote;
         int yes = 0;
         int no = 0;
         int dontCare = 0;
         String voteValue;
-        String id;
-
         String CSVpath = "src/main/java/com/courseProject/Votes.csv";
-
         Total voteTotal = new Total();
-
         Csv file = new Csv(CSVpath);
         String[][] data = file.readCSV();
         for (int i = 0; i < data.length; i++){
@@ -59,10 +53,11 @@ public class Controller {
                 voteTotal.setDontCare(dontCare);
             }
         }
-            return voteTotal;
+        return voteTotal;
     }
 
-    @PostMapping("/vote") String Write(@RequestBody Votes votes){
+    @PostMapping("/vote")
+    public String write(@RequestBody Votes votes) {
         int vote = votes.getVote();
         String id = votes.getId();
 
