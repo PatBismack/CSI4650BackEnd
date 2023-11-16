@@ -27,7 +27,7 @@
     let uniqueIdCounter = parseInt(localStorage.getItem('uniqueIdCounter')) || 100;
     async function recordVote(vote) {
         const url = 'http://localhost:8080/api/vote';
-        const id = generateUniqueId(); // not made
+        const id = generateUniqueId();
 
         const data = {
             vote: vote,
@@ -56,8 +56,8 @@
     }
 
     function generateUniqueId() {
-        const id = uniqueIdCounter; // Get the current value of the counter
-        uniqueIdCounter++; // Increment the counter for the next ID
+        const id = uniqueIdCounter;
+        uniqueIdCounter++;
         localStorage.setItem('uniqueIdCounter', uniqueIdCounter);
         return id;
     }
