@@ -6,10 +6,12 @@
     <link rel="stylesheet" type="text/css" href="styling.css">
 </head>
 <body>
-<header>
-    <img src="Icon.svg" alt="Icon">
-    <h1>Distributed Computing</h1>
-</header>
+<a href="index.html">
+    <header>
+        <img src="Icon.svg" alt="Icon">
+        <h1>Distributed Computing</h1>
+    </header>
+</a>
 <div class="container">
     <main>
         <h2>Is Mac better than Windows?</h2>
@@ -22,9 +24,10 @@
 </div>
 
 <script>
+    let uniqueIdCounter = 100;
     async function recordVote(vote) {
         const url = 'http://localhost:8080/api/vote';
-        const id = generateUniqueId(); // not made
+        const id = generateUniqueId();
 
         const data = {
             vote: vote,
@@ -53,7 +56,9 @@
     }
 
     function generateUniqueId() {
-        // Implement ID generation
+        const id = uniqueIdCounter;
+        uniqueIdCounter++;
+        return id;
     }
 </script>
 </body>
