@@ -123,14 +123,11 @@
             i.textContent = total;
         }
 
-
+        // display progress bars
 
         document.querySelector('#yes .progress-bar').style.width = ((yes / total) * 100).toString() + '%';
         document.querySelector('#no .progress-bar').style.width = ((no / total) * 100).toString() + '%';
         document.querySelector('#dontCare .progress-bar').style.width = ((dontCare / total) * 100).toString() + '%';
-
-
-
 
         // display pi chart
 
