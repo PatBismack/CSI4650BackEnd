@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Votes</title>
+    <link rel="stylesheet" type="text/css" href="styling.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
+
+</head>
+<body>
+<a href="index.html">
+    <header>
+        <img src="Icon.svg" alt="Icon">
+        <h1>Distributed Computing</h1>
+    </header>
+</a>
+
+<div class="container">
+    <main>
+        <div id="inner-container">
+            <h2>Is Mac better than Windows?</h2>
+            <div id="content-container">
+                <div id="progress-container">
+                    <div id="yes" class="progress-item">
+                        <div class="progress-header">
+                            <h3>Yes</h3>
+                            <div>
+                                <span class="percent">70</span><span>%</span> <span class="votes">7</span><span>/</span><span class="total">10</span> <span>votes</span>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                    <div id="no" class="progress-item">
+                        <div class="progress-header">
+                            <h3>No</h3>
+                            <div>
+                                <span class="percent">70</span><span>%</span> <span class="votes">7</span><span>/</span><span class="total">10</span> <span>votes</span>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                    <div id="dontCare" class="progress-item">
+                        <div class="progress-header">
+                            <h3>Don't Care</h3>
+                            <div>
+                                <span class="percent">70</span><span>%</span> <span class="votes">7</span><span>/</span><span class="total">10</span> <span>votes</span>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div><a href="index.html"><button>back</button></a></div>
+            </div>
+        </div>
+        <div id="pie-container">
+            <div id="pie-inner-container">
+                <canvas id="pie-chart"></canvas>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+
+    rootStyles = getComputedStyle(document.documentElement);
+
+    async function fetchAllVotes() {
+        const url = 'http://localhost:8080/api/getAllVotes';
+
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                const votes = await response.json();
+                displayVotes(votes);
+            } else {
+                showError('Failed to fetch votes');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showError('An error occurred while fetching votes');
+        }
+    }
+
+    function displayVotes(votes) {
+
+        const total = votes.length;
+        let yes = 0;
+        let no = 0;
+        let dontCare = 0;
+
+        for (const vote of votes) {
+            switch (vote.vote) {
+                case 0:
+                    yes++;
+                    break;
+                case 1:
+                    no++;
+                    break;
+                case 2:
+                    dontCare++;
+                    break;
+            }
+        }
+
+        // display text above progress bar
+
+        document.querySelector('#yes .percent').textContent = ((yes / total) * 100).toFixed(0).toString();
+        document.querySelector('#no .percent').textContent = ((no / total) * 100).toFixed(0).toString();
+        document.querySelector('#dontCare .percent').textContent = ((dontCare / total) * 100).toFixed(0).toString();
+
+        document.querySelector('#yes .votes').textContent = yes.toString();
+        document.querySelector('#no .votes').textContent = no.toString();
+        document.querySelector('#dontCare .votes').textContent = dontCare.toString();
+
+        for (const i of document.querySelectorAll('.total')) {
+            i.textContent = total;
+        }
+
+        // display progress bars
+
+        document.querySelector('#yes .progress-bar').style.width = ((yes / total) * 100).toString() + '%';
+        document.querySelector('#no .progress-bar').style.width = ((no / total) * 100).toString() + '%';
+        document.querySelector('#dontCare .progress-bar').style.width = ((dontCare / total) * 100).toString() + '%';
+
+        // display pi chart
+
+        const data = {
+            datasets: [{
+                data: [yes, no, dontCare],
+                backgroundColor: [
+                    rootStyles.getPropertyValue('--yesColor'),
+                    rootStyles.getPropertyValue('--noColor'),
+                    rootStyles.getPropertyValue('--dontCareColor')]
+            }]
+        }
+
+        const options = {
+            responsive: true,
+        }
+
+        const piChart = new Chart(document.querySelector('#pie-chart').getContext('2d'), {
+            type: 'pie',
+            data: data,
+            options: options
+        })
+    }
+
+    // function displayVotes(votes) {
+    //     const votesList = document.getElementById('votesList');
+    //     votesList.innerHTML = '';
+    //
+    //     if (votes.length === 0) {
+    //         votesList.innerHTML = '<p>No votes recorded yet.</p>';
+    //         return;
+    //     }
+    //
+    //     votes.forEach(vote => {
+    //         const li = document.createElement('li');
+    //         li.textContent = `Vote: ${vote.vote}, ID: ${vote.id}`;
+    //         votesList.appendChild(li);
+    //     });
+    // }
+
+    fetchAllVotes();
+
+</script>
+</body>
+</html>

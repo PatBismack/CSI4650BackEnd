@@ -48,8 +48,8 @@ class Csi4650CourseProjectApplicationTests {
 		Controller controller = mock(Controller.class);
 
 		Total expectedTotal = new Total(1, 2, 3);
-		when(controller.voteTotal(any(Total.class))).thenReturn(expectedTotal);
-		Total result = controller.voteTotal(new Total());
+		when(controller.voteTotal()).thenReturn(expectedTotal);
+		Total result = controller.voteTotal();
 
 		Assertions.assertEquals(1, result.getYes());
 		Assertions.assertEquals(2, result.getNo());

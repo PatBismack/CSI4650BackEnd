@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Distributed Computing</title>
+    <link rel="stylesheet" type="text/css" href="styling.css">
+</head>
+<body>
+<a href="index.html">
+    <header>
+        <img src="Icon.svg" alt="Icon">
+        <h1>Distributed Computing</h1>
+    </header>
+</a>
+<div class="container">
+    <main>
+        <h2>Is Mac better than Windows?</h2>
+        <div class="options">
+            <button onclick="recordVote(0)">Yes</button>
+            <button onclick="recordVote(1)">No</button>
+            <button onclick="recordVote(2)">Don't Care</button>
+        </div>
+    </main>
+</div>
+
+<script>
+    let uniqueIdCounter = parseInt(localStorage.getItem('uniqueIdCounter')) || 100;
+    async function recordVote(vote) {
+        const url = 'http://localhost:8080/api/vote';
+        const id = generateUniqueId();
+
+        const data = {
+            vote: vote,
+            id: id
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                window.location.href = 'votes.html';
+            } else {
+                alert('Failed to record vote');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while recording the vote');
+        }
+    }
+
+    function generateUniqueId() {
+        const id = uniqueIdCounter;
+        uniqueIdCounter++;
+        localStorage.setItem('uniqueIdCounter', uniqueIdCounter);
+        return id;
+    }
+</script>
+</body>
+</html>
