@@ -22,6 +22,13 @@ class Csi4650CourseProjectApplicationTests {
 				controller.write(new Votes(0, "000")));
 	}
 
+	@Test
+	public void submitVoteNegativeTest() {
+		Controller controller = new Controller();
+		String invalidInputResponse = controller.write(new Votes(-1, "invalidID"));
+		Assertions.assertNotEquals("Vote was recorded successfully: Vote 0 Id: 000", invalidInputResponse);
+	}
+
 	//Re-wrote test, couldn't get old test to work
 	@Test
 	public void getAllVotesTest() {
@@ -41,6 +48,21 @@ class Csi4650CourseProjectApplicationTests {
 		}
 	}
 
+	@Test
+	public void getAllVotesNegativeTest() {
+		Controller controller = new Controller();
+
+		List<Votes> actualVotes = controller.Read();
+		List<Votes> incorrectExpectedVotes = new ArrayList<>();
+		incorrectExpectedVotes.add(new Votes(999, "incorrectID"));
+
+		Assertions.assertNotEquals(incorrectExpectedVotes.size(), actualVotes.size());
+		for (int i = 0; i < incorrectExpectedVotes.size(); i++) {
+			Assertions.assertNotEquals(incorrectExpectedVotes.get(i).getVote(), actualVotes.get(i).getVote());
+			Assertions.assertNotEquals(incorrectExpectedVotes.get(i).getId(), actualVotes.get(i).getId());
+		}
+	}
+
 	// Works a bit differently that the other test, uses Mockito
 	@Test
 	public void getTotalTest() {
@@ -54,5 +76,18 @@ class Csi4650CourseProjectApplicationTests {
 		Assertions.assertEquals(1, result.getYes());
 		Assertions.assertEquals(2, result.getNo());
 		Assertions.assertEquals(3, result.getDontCare());
+	}
+
+	@Test
+	public void getTotalNegativeTest() {
+		Controller controller = mock(Controller.class);
+
+		Total incorrectTotal = new Total(1, 2, 3);
+		when(controller.voteTotal()).thenReturn(incorrectTotal);
+		Total result = controller.voteTotal();
+
+		Assertions.assertNotEquals(4, result.getYes());
+		Assertions.assertNotEquals(5, result.getNo());
+		Assertions.assertNotEquals(6, result.getDontCare());
 	}
 }
